@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
+    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -18,7 +20,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onOperator(view: View) {}
+
     fun onDecimalPoint(view: View) {}
-    fun onClear(view: View) {}
+
+    fun onClear(view: View) {
+        var display = findViewById<TextView>(R.id.tvInput)
+        display.text = ""
+    }
+
     fun onEqual(view: View) {}
 }
