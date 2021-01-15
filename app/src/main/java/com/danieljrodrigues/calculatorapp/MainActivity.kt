@@ -7,7 +7,9 @@ import android.widget.Button
 import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
-    
+
+    var lastNumeric : Boolean = false
+    var lastDot : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,11 +19,18 @@ class MainActivity : AppCompatActivity() {
     fun onDigit(view: View) {
         var display = findViewById<TextView>(R.id.tvInput)
         display.append((view as Button).text)
+        lastNumeric = true
     }
 
     fun onOperator(view: View) {}
 
-    fun onDecimalPoint(view: View) {}
+    fun onDecimalPoint(view: View) {
+        if (lastNumeric && !lastDot) {
+            var display = findViewById<TextView>(R.id.tvInput)
+            display.append(".")
+            lastDot = true
+        }
+    }
 
     fun onClear(view: View) {
         var display = findViewById<TextView>(R.id.tvInput)
