@@ -22,12 +22,29 @@ class MainActivity : AppCompatActivity() {
         lastNumeric = true
     }
 
-    fun onOperator(view: View) {}
+    private fun isOperatorAdded(value : String) : Boolean {
+        return if (value.startsWith("-")) {
+            false
+        } else {
+            value.contains("/") || value.contains("*") ||
+            value.contains("-") || value.contains("+")
+        }
+    }
+
+    fun onOperator(view: View) {
+        var display = findViewById<TextView>(R.id.tvInput)
+        if (lastNumeric && !isOperatorAdded(display.text.toString())) {
+            display.append((view as Button).text)
+            lastNumeric = false
+            lastDot = false
+        }
+    }
 
     fun onDecimalPoint(view: View) {
         if (lastNumeric && !lastDot) {
             var display = findViewById<TextView>(R.id.tvInput)
             display.append(".")
+            lastNumeric = false
             lastDot = true
         }
     }
