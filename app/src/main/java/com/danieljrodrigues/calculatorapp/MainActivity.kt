@@ -54,5 +54,31 @@ class MainActivity : AppCompatActivity() {
         display.text = ""
     }
 
-    fun onEqual(view: View) {}
+    fun onEqual(view: View) {
+        if(lastNumeric) {
+            var display = findViewById<TextView>(R.id.tvInput)
+            var displayTextValue = display.text.toString()
+            var prefix = ""
+
+            try {
+                if(displayTextValue.startsWith("-")) {
+                    prefix = "-"
+                    displayTextValue = displayTextValue.substring(1)
+                }
+
+                if(displayTextValue.contains("-")) {
+                    val splitValue = displayTextValue.split("-")
+
+                    var firstValue = splitValue[0]
+                    var secondValue = splitValue[1]
+
+                    if(!prefix.isEmpty()) {
+                        firstValue = prefix + firstValue
+                    }
+
+                    display.text = (firstValue.toDouble() - secondValue.toDouble()).toString()
+                }
+            } catch (e: ArithmeticException) {}
+        }
+    }
 }
