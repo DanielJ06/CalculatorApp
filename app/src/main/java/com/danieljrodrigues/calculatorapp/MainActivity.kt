@@ -54,6 +54,14 @@ class MainActivity : AppCompatActivity() {
         display.text = ""
     }
 
+    private fun removeZeroAfterDot(result: String): String {
+        var value = result;
+        if (result.contains(".0")) {
+            value = result.substring(0, result.length - 2)
+        }
+        return  value
+    }
+
     fun onEqual(view: View) {
         if(lastNumeric) {
             var display = findViewById<TextView>(R.id.tvInput)
@@ -76,7 +84,40 @@ class MainActivity : AppCompatActivity() {
                         firstValue = prefix + firstValue
                     }
 
-                    display.text = (firstValue.toDouble() - secondValue.toDouble()).toString()
+                    display.text = removeZeroAfterDot((firstValue.toDouble() - secondValue.toDouble()).toString())
+                } else if(displayTextValue.contains("*")) {
+                    val splitValue = displayTextValue.split("*")
+
+                    var firstValue = splitValue[0]
+                    var secondValue = splitValue[1]
+
+                    if(!prefix.isEmpty()) {
+                        firstValue = prefix + firstValue
+                    }
+
+                    display.text = removeZeroAfterDot((firstValue.toDouble() * secondValue.toDouble()).toString())
+                } else if(displayTextValue.contains("+")) {
+                    val splitValue = displayTextValue.split("+")
+
+                    var firstValue = splitValue[0]
+                    var secondValue = splitValue[1]
+
+                    if(!prefix.isEmpty()) {
+                        firstValue = prefix + firstValue
+                    }
+
+                    display.text = removeZeroAfterDot((firstValue.toDouble() + secondValue.toDouble()).toString())
+                } else if(displayTextValue.contains("/")) {
+                    val splitValue = displayTextValue.split("/")
+
+                    var firstValue = splitValue[0]
+                    var secondValue = splitValue[1]
+
+                    if(!prefix.isEmpty()) {
+                        firstValue = prefix + firstValue
+                    }
+
+                    display.text = removeZeroAfterDot((firstValue.toDouble() / secondValue.toDouble()).toString())
                 }
             } catch (e: ArithmeticException) {}
         }
